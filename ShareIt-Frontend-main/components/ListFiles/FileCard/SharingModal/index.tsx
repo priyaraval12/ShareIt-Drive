@@ -62,11 +62,7 @@ export const SharingModal = ({
         )
       ).toString("hex");
 
-      const tx = await shareItContract.share(
-        tokenId,
-        address,
-        userFileKey
-      );
+      const tx = await shareItContract.share(tokenId, address, userFileKey);
       await tx.wait();
 
       sharedWithHandlers.prepend(address);

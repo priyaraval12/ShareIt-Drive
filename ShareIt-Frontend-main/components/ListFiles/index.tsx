@@ -2,7 +2,7 @@ import { Group, NativeSelect, SimpleGrid, Stack } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { CommonProps, FileInfo } from "../../utils";
 import { FileCard } from "./FileCard";
-import styles from "../../styles/home.module.css"
+import styles from "../../styles/home.module.css";
 interface ListFilesProps extends Pick<CommonProps, "connectedWallet"> {
   fileInfos: FileInfo[];
 }

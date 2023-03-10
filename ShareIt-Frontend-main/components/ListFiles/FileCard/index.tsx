@@ -13,7 +13,7 @@ import { saveAs } from "file-saver";
 import { SharingModal } from "./SharingModal";
 import { useState } from "react";
 import { DownloadSimple, Share } from "phosphor-react";
-import styles from "../../../styles/home.module.css"
+import styles from "../../../styles/home.module.css";
 interface FileCardProps extends Pick<CommonProps, "connectedWallet"> {
   fileInfo: FileInfo;
 }
@@ -37,10 +37,7 @@ export const FileCard = ({
     }
 
     const shareItContract = getShareItContract();
-    const fileKey = await shareItContract.fileKeys(
-      tokenId,
-      connectedWallet
-    );
+    const fileKey = await shareItContract.fileKeys(tokenId, connectedWallet);
 
     const ethereum = window.ethereum as MetaMaskInpageProvider;
     const mnemonic = await ethereum.request({
@@ -58,42 +55,42 @@ export const FileCard = ({
 
   return (
     <>
-    <div >
-      {isOwned ? (
-        <SharingModal
-          opened={isSharingModalOpened}
-          setOpened={setIsSharingModalOpened}
-          connectedWallet={connectedWallet}
-          tokenId={tokenId}
-        />
-      ) : null}
-      <Card className={styles.filecardbg}>
+      <div>
         {isOwned ? (
-          <Badge>Owned</Badge>
-        ) : (
-          <Tooltip
-            position="bottom"
-            label={"Owned by " + trimAddress(owner, 3)}
-          >
-            <Badge>Shared</Badge>
-          </Tooltip>
-        )}
-        <Stack>
-          <Text align="center">{filename}</Text>
-          <Button leftIcon={<DownloadSimple />} onClick={handleFileDownload}>
-            Download
-          </Button>
-
+          <SharingModal
+            opened={isSharingModalOpened}
+            setOpened={setIsSharingModalOpened}
+            connectedWallet={connectedWallet}
+            tokenId={tokenId}
+          />
+        ) : null}
+        <Card className={styles.filecardbg}>
           {isOwned ? (
-            <Button
-              leftIcon={<Share />}
-              onClick={() => setIsSharingModalOpened(true)}
+            <Badge>Owned</Badge>
+          ) : (
+            <Tooltip
+              position="bottom"
+              label={"Owned by " + trimAddress(owner, 3)}
             >
-              Share
+              <Badge>Shared</Badge>
+            </Tooltip>
+          )}
+          <Stack>
+            <Text align="center">{filename}</Text>
+            <Button leftIcon={<DownloadSimple />} onClick={handleFileDownload}>
+              Download
             </Button>
-          ) : null}
-        </Stack>
-      </Card>
+
+            {isOwned ? (
+              <Button
+                leftIcon={<Share />}
+                onClick={() => setIsSharingModalOpened(true)}
+              >
+                Share
+              </Button>
+            ) : null}
+          </Stack>
+        </Card>
       </div>
     </>
   );
